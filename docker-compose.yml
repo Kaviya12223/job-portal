@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    container_name: jobportal-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: jobportal-frontend
+    ports:
+      - "3000:80"
+
+  db:
+    image: postgres:15
+    container_name: jobportal-db
+    environment:
+      POSTGRES_DB: jobportal
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
